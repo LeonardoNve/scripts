@@ -11,6 +11,8 @@ stats_by_tcp_port = {}
 stats_by_udp_port = {}
 
 def initializeHost(host_element):
+    if host_element.find('ports') == None:
+        return
     ip = host_element.find('address').attrib['addr']
     if ip not in stats_by_ip.keys():
         stats_by_ip[ip] = {}
@@ -111,7 +113,8 @@ def LoadFromXml():
     for file in sys.argv[2:]:
         tree = ET.parse(file)
         root = tree.getroot()
-        initializeHost(root.find('host'))
+        for host in root.findall('host'):
+            initializeHost(host)
 
     print "List of TCP ports found: " + str(sorted(stats_by_tcp_port.keys()))
     print "List of UDP ports found: " + str(sorted(stats_by_udp_port.keys()))
