@@ -1,4 +1,4 @@
 scripts
 =======
 
-Random scripts
+Random scripts and configuration files
