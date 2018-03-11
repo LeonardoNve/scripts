@@ -1,0 +1,215 @@
+# Launch android emu menu
+android avd ChallengeApp -scale 0.4
+
+# Launch android emu with proxy support (burp)
+emulator -avd ChallengeApp -http-proxy http://127.0.0.1:8081 -scale 0.4
+
+# Pull file from emu
+adb pull /data/app/com.pcsl.challengeapp-1/base.apk
+
+# Show listening debug ports
+adb jdwp
+
+# debug with rlwrapped jdb (use this one!)
+rlwrap-jdb jdb -attach localhost:4170 -sourcepath $(pwd)
+
+
+# Install APK (use -r to reinstall)
+adb install <path_to_your_bin>.apk
+
+# Recompile APK package 
+apktool b <apk_folder> -o new_akp.apk
+
+# Decomplile APK code (dex2jar)
+d2j-dex2jar.sh someApk.apk
+
+# Recompile APK code (jar2dex)
+d2j-jar2dex.sh --output=classes.dex abc.jar
+
+# Launch Logcat terminal
+adb logcat
+
+# Generate debug keystore
+keytool -genkeypair  -keyalg RSA -alias androiddebugkey -keypass android -keystore debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 9999
+
+# List keystore aliases
+keytool -keystore debug.keystore -list -v
+
+# SQLite3 database management:
+sqlite3 <database>
+.schema
+
+# emu port forwarding (drozer)
+
+# List installed packages
+adb shell pm list packages | cut -d: -f2
+
+# Get APK path to package
+adb shell pm path com.xxxx.android
+
+# Decompile APK package
+apktool d <app.apk>
+
+# Sign APK
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass android -keystore ~/testing/android/keys/debug.keystore <APK> androiddebugkey
+
+# Install APK (use -r to reinstall)
+adb install <path_to_apk>
+
+# uninstall APK (often required)
+adb uninstall <your.package.name>
+
+# Install Burp CA on device
+Grab Burp CA
+Change extension from .der to .crt
+push certificate to /storage/sdcard
+Import from SDCARD via settings
+
+# Run through PDA tool
+python ~/tools/testing-tool-repository/mobile-app-assessment/android/pda3.0/pda.py -n -c -s -e ChallengeApp -d -a /home/josh/testing/android/apps/
+
+# Logcat filter by package
+adb logcat | grep `adb shell ps | grep co.uk.xxxx.xxxx | cut -c10-15`
+
+# View x509 certificate information
+openssl x509 -in damnvulnerablecert -text -noout
+
+# View x509 certificate modulus (often checked by pinning)
+openssl x509 -modulus -inform DER -in cacert.der
+
+# Load keystore (BKS)
+keytool -list -v -keystore "damnvulnerableapp.bks" -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath /usr/local/bin/bcprov-ext-jdk15on-1.46.jar -storetype BKS -storepass PASSWORD
+
+# Add CA to keystore (BKS)
+keytool -importcert -v -trustcacerts -file "../../../../burp_ca.crt" -alias burp_ca -keystore "damnvulnerableapp.bks" -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath "/home/josh/Downloads/bcprov-ext-jdk15on-1.46.jar" -storetype BKS -storepass PASSWORD
+
+# Dump to logcat smali (with tag JJF)
+const-string v1, "JJF"
+invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+# Wait for debugger Smali
+invoke-static {}, Landroid/os/Debug;->waitForDebugger()V
+
+# Return true/false Smali
+const/4 v0, 0x0
+return v0
+
+# Remount Android filesystem as r/w
+mount -o rw,remount,rw /system
+
+# Adb pull folder
+adb shell find "/data/data/com.xxxx.xxx" | tr -d '\015' | while read line; do adb pull $line; done;
+
+# Adb pull file
+adb pull /data/app/com.pcsl.xxxx/base.apk
+
+# Launch android emu with ANDROID_ID not null (sometimes used for rooted detection)
+emulator -avd jbx86 -prop emu.uuid=5ec33f90-a471-11e2-9e96-0800200c9a66
+
+
+# Get ANDROID_ID of device
+adb shell content query --uri content://settings/secure/android_id --projection value
+
+
+# Capture screenshot (regardless of whether activity ACLs prevent them) (requires root)
+/system/bin/screencap -p /storage/sdcard/screenshot.png
+
+# debug with jdb
+adb forward tcp:<port> jdwp:<port>
+jdb -attach localhost:<port>
+
+# debug with rlwrapped jdb (use this one!)
+rlwrap-jdb jdb -attach localhost:4170
+
+# Open shell to emu/device
+adb shell
+
+# List devices
+adb devices
+
+# Target specifc device when using multiple
+adb -s device_name <command>
+
+# Uninstall via intent (within emu)
+adb shell am start -a android.intent.action.DELETE -d package:<your app package>
+
+# Launch Logcat GUI/sysmon
+cd /home/josh/tools/android-sdk-linux/tools; monitor
+
+# Launch Logcat terminal
+
+# drozer commands
+    # Install agent
+    adb install drozer-agent-2.3.4.apk
+
+    # Forward drozer port
+    adb forward tcp:31415 tcp:31415
+
+    # Connect
+    drozer console --server 127.0.0.1:31415 connect
+
+    # Get APK info
+    run app.package.info -a <apk name>
+
+    # Identify attack surface
+    run app.package.attacksurface <apk name>
+
+    # List activites
+    run app.activity.info -a <apk name>
+
+# Launch activity (in adb shell)(run as root if activity not exported)
+adb shell am start -a android.intent.action.MAIN -n <activity_name>
+
+# Enable developer mode
+Settings > About > Tap build number 7 times
+
+# Query content provider
+adb shell content query --uri content://com.pcsl.damnvulnerableapp.query/username
+
+# Bypass operation not permitted error when moving su binaries (Kingroot specific)
+chattr -a su
+
+# Boot into fastboot mode
+adb reboot bootloader
+
+# Run adb as root (not supported in production build)
+adb root
+
+# Run adb as root (alt)
+adb kill-server; sudo $(whereis adb) start-server
+
+# Compile and execute Java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World");
+    }
+}
+
+javac HelloWorld.java
+java HelloWorld
+
+# Dump Android process memory
+---------------------------------------
+$ adb push dump_android_memory /data/local/tmp/dump_android_memory
+$ adb shell
+$ su
+$ chmod 4755 /data/local/tmp/dump_android_memory
+$ exit
+$ adb shell ps | grep package_name
+u0_a74    2239  212   1081240 122676 sys_epoll_ b6d37894 S package_name
+$ adb shell cat /proc/2239/maps | grep libc_malloc
+...
+9b740000-9b7c0000 rw-p 00000000 00:00 0          [anon:libc_malloc]
+...
+$ adb shell /data/local/tmp/dump_android_memory 2239 0x9b740000 131072 > dump.out
+-----------------------------------------------
+
+# Manage SDK/API settings
+android
+
+Notes:
+    Applications storage path: /data/app/
+    Data storage path:  /data/data/<APK_Name> and /sdcard/Android/data/<APK_Name>
+    SDCard: /storage/sdcard
+    Pentesting Android 101: http://www.yap0wnb.com/2014_02_01_archive.html
+    Android secure coding guidelines: https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=111509535

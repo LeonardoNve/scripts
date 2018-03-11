@@ -1,0 +1,6 @@
+#FInding out the profile
+volatility imageinfo -f <file>
+
+#Using a profile
+volatility envars --profile=Win7SP1x86 -f <file.
+

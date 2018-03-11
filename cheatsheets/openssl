@@ -19,3 +19,15 @@ openssl x509 -text -noout -in server.crt
 echo | openssl s_client -connect <hostname>:443 2> /dev/null | \
 awk '/-----BEGIN/,/END CERTIFICATE-----/' | \
 openssl x509 -noout -enddate
+
+# use openssl as telnet for SSL wrapped services
+openssl s_client -connect ip:port
+
+#decrypt private key
+openssl rsa -in ssl.key.encrypted -out ssl.key.decrypted
+
+#add passphrase - x509 certificates
+openssl rsa -des3 -in your.key -out your.encrypted.key
+
+#Modify from DER to PEM
+openssl x509 -inform der -in ../../../../../burp_certificate -out ./bupr_certificate.pem

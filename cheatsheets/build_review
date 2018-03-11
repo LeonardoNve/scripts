@@ -138,3 +138,8 @@ mount
 
 - Check installed applications
 - Check installed compilers/interpreters
+
+
+#dump SAM and SYSTEM
+reg.exe save hkey_local_machine\SAM <file>
+reg.exe save hkey_local_machine\SYSTEM <file>

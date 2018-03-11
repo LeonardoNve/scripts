@@ -10,5 +10,8 @@ ls -lh
 # Display files, sorted by size
 ls -S
 
-# Display files with parrent folder
-ls -L */*
+# Display directories only
+ls -d */
+
+# Display directories only, include hidden
+ls -d .*/ */

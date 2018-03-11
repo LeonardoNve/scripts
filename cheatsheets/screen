@@ -9,3 +9,7 @@ screen -r session_name
 
 # List all screen sessions:
 screen -ls
+screen -list
+
+#quit a non-bash screen session:
+Ctrl+a, :quit

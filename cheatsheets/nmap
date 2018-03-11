@@ -1,3 +1,6 @@
+# Single target scan:
+nmap [target]
+
 # Scan from a list of targets:
 nmap -iL [list.txt]
 
@@ -7,11 +10,11 @@ nmap -6 [target]
 # OS detection:
 nmap -O --osscan_guess [target]
 
-# Save output:
+# Save output to text file:
 nmap -oN [output.txt] [target]
+
+# Save output to xml file:
 nmap -oX [output.xml] [target]
-nmap -oA [output] [target]
-nmap -oG [output.grep] [target]
 
 # Scan a specific port:
 nmap -source-port [port] [target]

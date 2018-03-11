@@ -30,3 +30,7 @@ ip link set dev eth0 address aa:bb:cc:dd:ee:ff
 
 # View neighbors (using ARP and NDP) 
 ip neighbor show
+
+#IPV6
+ip -6 neigh show [dev <device>]
+ip -6 neigh add <ip> dev <device>

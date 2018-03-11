@@ -28,6 +28,7 @@ display /5i $eip                - display expression everytime execution stops
 undisplay <expr #>              - undisplay expression number
 info functions                  - list all the functions
 info variables                  - list all the variables
+info locals                     - list all local variables
 info registers                  - list most common registers
 info all-registers              - list all registers
 info display                    - print the list of displayed expressions

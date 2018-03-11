@@ -1,0 +1,2 @@
+#convert vmdk to qcow2
+qemu-img convert -f vmdk -O qcow2 image.vmdk image.qcow2

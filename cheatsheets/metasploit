@@ -18,3 +18,8 @@ set <option> <value>
 
 # To run the exploit
 exploit
+
+
+/post/windows
+/exploit/multi/handler
+/exploit/windows/local/

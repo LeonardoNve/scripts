@@ -1,0 +1,1 @@
+rdesktop -g 1500x1200 -r  disk:share=/disk2/build-reviews/windows/tools/mimikatz  10.92.86.130

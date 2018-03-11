@@ -10,3 +10,9 @@ hydra -t 1 -l admin -P [path to password.lst] -vV [IPaddress] ftp
 #check for joe accounts by adding modifier -e s
 
 #to write found login+pass combinations to fiel, add modifier -0 [fileanme]
+#
+
+#when testing RDP, make sure that the domain(even if its the hostname) is appended to the IP, otherwise it wont work
+
+#HTTP form bruteforce:
+hydra -l user -p pass ip http-post-form "/login.php:username=^USER^&password=^PASS^:Invalid password"

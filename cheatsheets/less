@@ -1,2 +1,4 @@
 # To disable the terminal refresh when exiting
 less -X
+:n - next file
+:p - previous file

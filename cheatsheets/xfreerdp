@@ -1,0 +1,5 @@
+xfreerdp /v:127.0.0.1 /u:john /w:2000 /h:1100
+
++clipboard : redirect clipboard
+/drive:<sharename>,<path> : Redirect <path> as share <sharename>
+
