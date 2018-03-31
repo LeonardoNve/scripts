@@ -66,3 +66,13 @@ C-b SPACE
 
 #HELP
 C-b ?
+
+#Needs the logging plugin
+#Start/stop logging
+prefix + shift + p
+
+#screen capture in current pane
+prefix + alt + p
+
+# save pane history
+prefix + alt + shift + p
